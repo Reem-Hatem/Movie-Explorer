@@ -1,12 +1,50 @@
+// // App.js
+// import React from 'react';
+// import { SafeAreaView, StyleSheet } from 'react-native';
+// import TopRatedMovies from './TopRatedMovies';
+
+// const App = () => {
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <TopRatedMovies />
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//   },
+// });
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Movies from './Components/Movies';
+import { Provider } from 'react-redux';
+import store from './Redux/store/store'
+import { NavigationContainer } from '@react-navigation/native';
+import DrawerNavigation from './Navigation/Drawer';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+    <NavigationContainer>
+      <DrawerNavigation></DrawerNavigation>
+    </NavigationContainer>
+    </Provider>
   );
 }
 
