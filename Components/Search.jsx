@@ -5,11 +5,30 @@ import Icon from 'react-native-vector-icons/Octicons';
 import { useState } from 'react';
 import { SelectCountry } from 'react-native-element-dropdown';
 import styles from '../styles/style'
+import { moviesNowPlayingAction, moviesPopularAction, moviesTopRatedAction, moviesUpComingAction } from '../Redux/slices/moviesSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const SelectMovieType = _props => {
     const [movieType, setMovieType] = useState('1');
     const [searchQuery, setSearchQuery] = React.useState('');
+    const movies = useSelector(state => state.movies.movies);
+    const dispatch= useDispatch();
+    React.useEffect(()=>{
+        if (movieType==='1'){
+            dispatch(moviesPopularAction());
+        }
+        else if (movieType==='2'){
+            dispatch(moviesNowPlayingAction());
+        }
+        else if (movieType==='3'){
+            dispatch(moviesTopRatedAction());
+        }
+        else if (movieType==='4'){
+            dispatch(moviesUpComingAction());
+        }
+        
+    },[movieType])
     const moviesTypes = [
         {
             value: '1',

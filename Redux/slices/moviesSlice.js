@@ -3,23 +3,23 @@ import axios from "axios";
 
 export const moviesTopRatedAction = createAsyncThunk("get/getTopRated", async()=>{
     const movies = await axios.get("https://api.themoviedb.org/3/movie/top_rated?api_key=00f378e7895b0d9b5b8653e265d683e1");
-    console.log(movies.data.results);
+    // console.log(movies.data.results);
     return movies.data.results;
 });
 export const moviesUpComingAction = createAsyncThunk("get/getUpComing", async()=>{
     const movies = await axios.get("https://api.themoviedb.org/3/movie/upcoming?api_key=00f378e7895b0d9b5b8653e265d683e1");
-    console.log(users.data);
-    return movies.data;
+    // console.log("upcoming");
+    return movies.data.results;
 });
 export const moviesNowPlayingAction = createAsyncThunk("get/getNowPlaying", async()=>{
     const movies = await axios.get("https://api.themoviedb.org/3/movie/now_playing?api_key=00f378e7895b0d9b5b8653e265d683e1");
-    console.log(movies.data);
-    return movies.data;
+    // console.log("now playing");
+    return movies.data.results;
 });
 export const moviesPopularAction = createAsyncThunk("get/getPopular", async()=>{
     const movies = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=00f378e7895b0d9b5b8653e265d683e1");
-    console.log(movies.data);
-    return movies.data;
+    // console.log("popular");
+    return movies.data.results;
 });
 
 

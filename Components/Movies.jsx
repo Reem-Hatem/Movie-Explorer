@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { moviesTopRatedAction } from '../Redux/slices/moviesSlice';
 import Movie from './Movie';
@@ -11,9 +11,9 @@ const Movies = () => {
         dispatch(moviesTopRatedAction());
     },[])
     return (
-        <View>
+        <ScrollView>
             {movies.map((m)=> <Movie key={m.id} {...m}></Movie>)}
-        </View>
+        </ScrollView>
     );
 }
 
