@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Octicons';
 import { useState } from 'react';
 import { SelectCountry } from 'react-native-element-dropdown';
 import styles from '../styles/style'
-import { moviesNowPlayingAction, moviesPopularAction, moviesTopRatedAction, moviesUpComingAction } from '../Redux/slices/moviesSlice';
+import { filterMovies, moviesNowPlayingAction, moviesPopularAction, moviesTopRatedAction, moviesUpComingAction } from '../Redux/slices/moviesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -13,22 +13,24 @@ const SelectMovieType = _props => {
     const [movieType, setMovieType] = useState('1');
     const [searchQuery, setSearchQuery] = React.useState('');
     const movies = useSelector(state => state.movies.movies);
-    const dispatch= useDispatch();
-    React.useEffect(()=>{
-        if (movieType==='1'){
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        if (movieType === '1') {
             dispatch(moviesPopularAction());
         }
-        else if (movieType==='2'){
+        else if (movieType === '2') {
             dispatch(moviesNowPlayingAction());
         }
-        else if (movieType==='3'){
+        else if (movieType === '3') {
             dispatch(moviesTopRatedAction());
         }
-        else if (movieType==='4'){
+        else if (movieType === '4') {
             dispatch(moviesUpComingAction());
         }
-        
-    },[movieType])
+
+    }, [movieType])
+
+
     const moviesTypes = [
         {
             value: '1',
@@ -48,12 +50,24 @@ const SelectMovieType = _props => {
         },
     ];
 
+
+    function changeMovies(val) {
+        setSearchQuery(val);
+
+        const lowercasedQuery = val.toLowerCase();
+        const filtered = movies.filter(movie =>
+            movie.title.toLowerCase().includes(lowercasedQuery)
+        );
+        dispatch(filterMovies(filtered));
+
+    }
+
     return (
-        <View style={{ flexDirection: 'row', width: '100%', marginTop:3 }}>
+        <View style={{ flexDirection: 'row', width: '100%', marginTop: 3 }}>
             <Searchbar
                 style={{ flex: 3 }}
                 placeholder="Search"
-                onChangeText={setSearchQuery}
+                onChangeText={changeMovies}
                 value={searchQuery}
             />
 
@@ -71,75 +85,10 @@ const SelectMovieType = _props => {
                     setMovieType(e.value);
                 }}
             />
+
         </View>
 
     );
 };
 
 export default SelectMovieType;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import * as React from 'react';
-// import { Searchbar, Menu } from 'react-native-paper';
-// import { Text, TouchableOpacity, View } from 'react-native';
-// import Icon from 'react-native-vector-icons/Octicons';
-
-// const SearchComponent = () => {
-//     const [searchQuery, setSearchQuery] = React.useState('');
-//     const [menuVisible, setMenuVisible] = React.useState(false);
-
-//     const openMenu = () => setMenuVisible(true);
-//     const closeMenu = () => setMenuVisible(false);
-
-//     const movieTypes = ['Popular', 'Playing Now', 'Top Rated', 'Up Coming'];
-
-//     return (
-//         <View style={{ flexDirection: 'row', width: '100%' }}>
-//             <Searchbar
-//                 style={{ flex: 3 }}
-//                 placeholder="Search"
-//                 onChangeText={setSearchQuery}
-//                 value={searchQuery}
-//             />
-
-//             <Menu
-//                     visible={menuVisible}
-//                     onDismiss={closeMenu}
-//                     anchor={
-//                         <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} onPress={openMenu}>
-//                             <Icon name="filter" size={30} color="#900" />
-//                         </TouchableOpacity>
-//                     }
-//                 >
-//                     {movieTypes.map((type) => (
-//                         <Menu.Item
-//                             key={type}
-//                             onPress={() => {
-//                                 console.log(type);
-//                                 closeMenu();
-//                             }}
-//                             title={type}
-//                         />
-//                     ))}
-//                 </Menu>
-//         </View>
-//     );
-// };
-
-// export default SearchComponent;

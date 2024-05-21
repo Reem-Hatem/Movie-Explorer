@@ -37,12 +37,14 @@ import { Provider } from 'react-redux';
 import store from './Redux/store/store'
 import { NavigationContainer } from '@react-navigation/native';
 import DrawerNavigation from './Navigation/Drawer';
+import MyStack from './Navigation/Stack';
 
 export default function App() {
   return (
     <Provider store={store}>
     <NavigationContainer>
-      <DrawerNavigation></DrawerNavigation>
+      <MyStack></MyStack>
+      {/* <DrawerNavigation></DrawerNavigation> */}
     </NavigationContainer>
     </Provider>
   );

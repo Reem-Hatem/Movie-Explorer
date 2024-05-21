@@ -5,7 +5,7 @@ import { moviesTopRatedAction } from '../Redux/slices/moviesSlice';
 import Movie from './Movie';
 
 const Movies = () => {
-    const movies = useSelector(state => state.movies.movies);
+    const movies = useSelector(state => state.movies.filteredMovies);
     const dispatch= useDispatch();
     useEffect(()=>{
         dispatch(moviesTopRatedAction());

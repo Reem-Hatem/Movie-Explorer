@@ -25,21 +25,31 @@ export const moviesPopularAction = createAsyncThunk("get/getPopular", async()=>{
 
 const moviesSlice = createSlice({
     name: "movies",
-    initialState: {movies: [], movie: {}},
+    initialState: {movies: [], filteredMovies: []},
+    reducers:{
+        filterMovies:(state, action)=>{
+            state.filteredMovies = action.payload;
+        }
+    },
     extraReducers: (builder)=>{
         builder.addCase(moviesTopRatedAction.fulfilled, (state, action)=>{
             state.movies = action.payload;
+            state.filteredMovies = action.payload;
         });
         builder.addCase(moviesUpComingAction.fulfilled, (state, action)=>{
             state.movies = action.payload;
+            state.filteredMovies = action.payload;
         });
         builder.addCase(moviesNowPlayingAction.fulfilled, (state, action)=>{
             state.movies = action.payload;
+            state.filteredMovies = action.payload;
         });
         builder.addCase(moviesPopularAction.fulfilled, (state, action)=>{
             state.movies = action.payload;
+            state.filteredMovies = action.payload;
         });
     }
 });
 
+export const {filterMovies} = moviesSlice.actions;
 export default moviesSlice.reducer;
